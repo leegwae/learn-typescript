@@ -274,7 +274,7 @@ function func(x: string | null | undefined) {
 
 ## Literal Types
 
-- 자바스크립트 `var`과 `let` 변수가 가질 수 있는 값이 바뀔 수 있고, `const`는 바뀔 수 없으므로 타입스크립트는 `const` 변수를 literal type으로 추론한다.
+- 자바스크립트 `var`과 `let` 변수가 가질 수 있는 값이 바뀔 수 있고, **`const`는 바뀔 수 없으므로 타입스크립트는 `const` 변수를 literal type으로 추론한다.**
 
 ```typescript
 let a = 'hello'; // a는 string으로 추론된다.
