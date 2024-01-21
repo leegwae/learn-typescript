@@ -173,7 +173,7 @@ function getArea(shape: Shape) {
 
 - `never` 타입의 값은 어떤 타입의 변수에든 할당할 수 있다.
 - `never` 타입의 변수에는 `never` 타입의 값만 할당할 수 있다.
-- `switch`문에서 `never`를 사용하여 철저히 검사할 수 있다.
+- `switch`문에서 `never`를 사용하여 철저히 검사할 수 있다. (`if`문의 경우 마지막 `else`문 내부에서 `shape`의 값은 `never`가 된다.)
 
 ```typescript
 interface Triangle {
@@ -194,8 +194,6 @@ function getArea(shape: Shape) {
   }
 }
 ```
-
-TODO; if문에서도 똑같지 않나?
 
 ## 스터디
 
