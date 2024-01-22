@@ -35,7 +35,7 @@ TODO; https://www.typescriptlang.org/docs/handbook/2/narrowing.html#truthiness-n
 
 ## Equality narrowing
 
-- 타입스크립트는 `switch`문, 일치/동등 비교 연산자를 narrowing에 사용한다.
+- 타입스크립트는 `switch`, 일치/동등 비교 연산자를 narrowing에 사용한다.
 
 ```typescript
 function test(x: string | number, y: string | boolean) {
@@ -98,13 +98,15 @@ foo = true; // 💥 Type 'boolean' is not assignable to type 'string | number'.
 - 변수를 분석할 때마다 control flow가 갈라지고 다시 머지되고 각 지점에서 서로 다른 타입으로 추론된다.
 
 ```typescript
-let x: string | number | boolean;
-x = Math.random() < 0.5;
-
-console.log(x);	// x: boolean
-if (Math.random() < 0.5) x = 'hello';	// x: string
-else x = 100;	// x: number
-return x;	// x: string
+function fn() {
+  let x: string | number | boolean;
+  x = Math.random() < 0.5;
+  
+  console.log(x);	// x: boolean
+  if (Math.random() < 0.5) x = 'hello';	// x: string
+  else x = 100;	// x: number
+  return x;	// x: string
+}
 ```
 
 ## Using type predicates to define a user-defined type guard

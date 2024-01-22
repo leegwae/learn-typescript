@@ -110,7 +110,7 @@ console.log(longest([1, 2, 3, 4], 'ab'));
 // 💥 Argument of type 'number[]' is not assignable to parameter of type '"ab"'.
 ```
 
-#### constraint에 매칭되는 객체의 타입은 constraint로 제한된 타입이 아니다
+#### constraint에 매칭되는 객체의 타입과 constraint로 제한된 타입은 같지 않다
 
 - constraint에 매칭되는 객체가 아니라 "같은 종류의 객체"여야한다. TODO; 어떻게 해결해야할까? type assertion?
 
