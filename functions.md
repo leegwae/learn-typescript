@@ -112,7 +112,7 @@ console.log(longest([1, 2, 3, 4], 'ab'));
 
 #### constraint에 매칭되는 객체의 타입과 constraint로 제한된 타입은 같지 않다
 
-- constraint에 매칭되는 객체가 아니라 "같은 종류의 객체"여야한다. TODO; 어떻게 해결해야할까? type assertion?
+- **constraint에 매칭되는 객체가 아니라 "같은 종류의 객체"여야한다. TODO; 어떻게 해결해야할까? type assertion?**
 
 ```typescript
 function toObject<Type extends { length: number }>(length: number): Type {
@@ -254,6 +254,10 @@ TODO; https://www.typescriptlang.org/docs/handbook/2/functions.html#function
 function add(...args: number[]) {
   return args.reduce((acc, cur) => acc + cur, 0);
 }
+
+function push(...args: [string, ...boolean[]]) {}
+push('a', true, false);
+push('a', 'b');	// 💥 Argument of type 'string' is not assignable to parameter of type 'boolean'.
 ```
 
 ### Rest Arguments
@@ -269,7 +273,7 @@ const op = [1, 2];
 add(...op);	// 💥 A spread argument must either have a tuple type or be passed to a rest parameter.
 ```
 
-이러한 경우 `as const`로 리터럴 타입을 만들어서 해결할 수 있다.
+이러한 경우 `as const`로 리터럴 타입을 만들거나 (변경될 리 없는) 리터럴을 넘겨 해결할 수 있다.
 
 ```typescript
 const op = [1, 2] as const;
@@ -342,6 +346,7 @@ fn();
 ```typescript
 function fn(x = 10) {
   // (parameter) x: number
+  console.log(x);
 }
 fn(undefined); // 오류 발생 안 함
 ```
