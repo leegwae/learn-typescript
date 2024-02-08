@@ -112,7 +112,7 @@ console.log(longest([1, 2, 3, 4], 'ab'));
 
 #### constraint에 매칭되는 객체의 타입과 constraint로 제한된 타입은 같지 않다
 
-- **constraint에 매칭되는 객체가 아니라 "같은 종류의 객체"여야한다. TODO; 어떻게 해결해야할까? type assertion?**
+- **constraint에 매칭되는 객체가 아니라 "같은 종류의 객체"여야한다. 무슨 뜻일까?**  `Type`이랑 `{length:number;}`는 다르다.
 
 ```typescript
 function toObject<Type extends { length: number }>(length: number): Type {
@@ -351,7 +351,36 @@ function fn(x = 10) {
 fn(undefined); // 오류 발생 안 함
 ```
 
+### reduce 타이핑하기
 
+```typescript
+interface Arr {
+  age: number;
+  name: string;
+}
+
+const arr: Arr[] = [
+  {
+    age: 3,
+    name: "jayden"
+  }
+]
+
+// 1. 결과 객체에 프로퍼티가 많지 않은 경우
+arr.reduce((prev: { names: string[]}, curr) => {
+  return {
+    names: [ ...prev.names, curr.name ]
+  };
+}, { names: []});
+
+
+// 2. 결과 객체에 프로퍼티가 많은 경우: 인덱스 시그니처 사용
+arr.reduce((prev: {[k: string]: string[]}, curr) => {
+  return {
+    names: [ ...prev.names, curr.name ]
+  };
+}, {});
+```
 
 
 
