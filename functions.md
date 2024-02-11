@@ -112,7 +112,7 @@ console.log(longest([1, 2, 3, 4], 'ab'));
 
 #### constraint에 매칭되는 객체의 타입과 constraint로 제한된 타입은 같지 않다
 
-- **constraint에 매칭되는 객체가 아니라 "같은 종류의 객체"여야한다. 무슨 뜻일까?**  `Type`이랑 `{length:number;}`는 다르다.
+- **constraint에 매칭되는 객체가 아니라 "같은 종류의 객체"여야한다. 무슨 뜻일까?**  `Type`이랑 `{length:number;}`는 다르다. `Type`은 `{ length: number }`에 매칭될 뿐 같지 않다.
 
 ```typescript
 function toObject<Type extends { length: number }>(length: number): Type {
@@ -184,58 +184,6 @@ function fn(x: string | number) {
 TODO; https://www.typescriptlang.org/docs/handbook/2/functions.html#declaring-this-in-a-function
 
 ## Other Types
-
-### `void`
-
-- `void`는 어떤 값도 반환하지 않는 함수의 반환값을 의미한다.
-- 자바스크립트 함수는 어떤 값도 반환하지 않으면 암묵적으로 `undefined`를 반환하나 타입스크립트에서 `void`와 `undefined`는 같지 않다.
-
-```typescript
-function hello(): void {
-  console.log('hello')
-}
-```
-
-### `object`
-
-- `object`는 primitive가 아닌 모든 값을 의미한다.
-- `object`는 빈 객체 타입인 `{}`과 global type `Object`와 다르다. (TODO; 그러면 global type `Object`는 무엇을 의미하는가?)
-
-```typescript
-function fn(obj: Object) {}
-fn({});	// TODO; 오류가 나지는 않음
-fn({ name: 1 });
-```
-
-### `unknown`
-
-- `unknown`은 *모든* 타입의 값을 의미한다.
-
-#### `any`와의 차이점
-
-- `any`와 `unknown`은 *모든* 타입을 의미한다. `any`와 `unknown`으로 선언된 변수에는 어떠한 타입의 값이든 할당할 수 있다.
-- `any` 타입의 값은 어떤 타입의 변수에도 할당할 수 있다. `any`는 타입 체킹을 하지 않기 때문이다.
-
-```typescript
-function fn(x: any) {
-    const a: number = x;
-}
-```
-
-- `unknown` 타입의 값은 `any`나 `unknown` 타입의 변수에만 할당할 수 있다. 다른 타입의 변수에 할당하려면 type aseertion이나 type guard를 사용해야만 한다.
-
-> 즉, `any`는 타입 체킹을 하지 않으므로 type aseertion이나 type guard를 강제하려면 `unknown`을 사용한다.
-
-### `never`
-
-- `never`은 절대 나타날 수 없는 값을 의미한다.
-- `never`는 절대 값을 반환하지 않는 함수의 반환값을 의미한다.
-
-```typescript
-function fail(): never  {
-  throw new Error();
-}
-```
 
 ### `Function`
 

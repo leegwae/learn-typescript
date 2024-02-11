@@ -1,8 +1,7 @@
 # Introduction
 
-- 자바스크립트 애플리케이션의 규모가 지수적으로 증가하고 있다.
 - 타입스크립트는 자바스크립트를 위한 정적 타입 체커이다. 런타임 이전에 타입을 검사하고 보장한다.
-- 타입스크립트 type annotation은 프로그램의 런타임 동작을 변경하지 않는다.
+- 타입스크립트 ***type annotation***은 프로그램의 런타임 동작을 변경하지 않는다.
 
 
 
@@ -25,13 +24,11 @@ tsc hello.ts
 `tsc`는 `hello.ts`에 대해 다음과 같은 동작을 한다.
 
 1. `hello.ts`를 정적 검사하여 에러를 검출한다.
-2. `hello.ts`를 컴파일하여 pe annotation이 제거된 플레인 자바스크립트 파일인 `hello.js`를 emit한다.
+2. `hello.ts`를 컴파일하여 type annotation이 제거된 플레인 자바스크립트 파일인 `hello.js`를 emit한다.
 
 ### `tsc` 컴파일러 옵션
 
 `tsc` 커맨드에 컴파일러 옵션들을 명시할 수 있다. 이들은 `tsconfig.json`라는 별도의 설정 파일에서 설정할 수도 있다. 아래는 대표적인 예시들이다.
-
-- 에러가 검출되어도 자바스크립트 파일을 emit하려면 `--noEmitOnError` 컴파일러 옵션을 사용한다.
 
 ```bash
 tsc --noEmitOnError hello.ts # 에러가 검출되면 자바스크립트 파일을 emit하지 않는다.

@@ -167,14 +167,8 @@ function getArea(shape: Shape) {
 - 이 예시에서 `kind`는 `Shape`의 discriminant 프로퍼티이다.
 - `Circle`과 `Square`는 `kind`라는 필드를 가졌으나 실제로는 별개의 타입이고, 때문에 자바스크립트 코드에서 벗어나지 않게 타입스크립트 코드를 작성할 수 있다.
 
-## The `never` type
+## Exhaustiveness checking
 
-- `never`은 존재해서는 안되는 타입을 나타낼 때 사용한다.
-
-### Exhaustiveness checking
-
-- `never` 타입의 값은 어떤 타입의 변수에든 할당할 수 있다.
-- `never` 타입의 변수에는 `never` 타입의 값만 할당할 수 있다.
 - `switch`문에서 `never`를 사용하여 철저히 검사할 수 있다. (`if`문의 경우 마지막 `else`문 내부에서 `shape`의 값은 `never`가 된다.)
 
 ```typescript

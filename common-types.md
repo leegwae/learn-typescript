@@ -2,15 +2,16 @@
 
 ## Type Annotations on Variables
 
-- Type Anonotaion은 명시적으로 타입스크립트에게 변수의 타입을 알려주는 것이다.
-- Type Annotation은 런타임에 제거된다.
-- 자바스크립트의 타입과 타입스크립트의 type annotation이 일대일대응하는 경우도 있다.
+- **type anonotaion**은 명시적으로 타입스크립트에게 변수의 타입을 알려주는 것이다.
 - 타입스크립트가 타입을 자동적으로 추론할 수 있는 경우는 type annotation을 명시하지 않아도 된다. 
 
 ```typescript
 const myName: string = 'lux'; // 굳이 명시하지 않아도 된다.
 const myName = 'lux'; // ✅ 타입스크립트가 string으로 추론한다.
 ```
+
+- type annotation은 런타임에 제거된다.
+- 자바스크립트의 타입과 타입스크립트의 type annotation이 일대일대응하는 경우도 있다.
 
 ## The Primitives
 
@@ -51,14 +52,7 @@ TODO; https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#bigint
 
 TODO; https://www.typescriptlang.org/docs/handbook/symbols.html
 
-## Arrays
-
-- 모든 요소의 타입이 같은 배열은 `T[]`이나 `Array<T>`로 나타낸다.
-
-```typescript
-const foo: number[] = [];
-const bar: Array<number> = [];
-```
+## Other types
 
 ### `any`
 
@@ -69,7 +63,74 @@ const obj: any = {};
 obj.foo();	// 어떤 에러도 발생하지 않는다.
 ```
 
-- 타입을 명시하지 않거나, 타입스크립트가 문맥에서 타입을 추론할 수 없는 경우 컴파일러는 그 타입을 `any`로 사용한다. 이를 막으려면 `noImplicitAny` 플래그를 활성화한다.
+#### `noImplicitAny`
+
+- 타입을 명시하지 않거나, 타입스크립트가 문맥에서 타입을 추론할 수 없는 경우 컴파일러는 그 타입을 `any`로 사용한다. 암묵적인 `any`의 사용에 오류를 발생시키려면 `noImplicitAny` 플래그를 활성화한다.
+
+### `unknown`
+
+> 출처
+>
+> - https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown
+
+- `unknown`은 *모든* 타입의 값을 의미한다.
+
+#### `any`와의 차이점
+
+- `any`와 `unknown`은 *모든* 타입을 의미한다. `any`와 `unknown`으로 선언된 변수에는 어떠한 타입의 값이든 할당할 수 있다.
+- `any` 타입의 값은 어떤 타입의 변수에도 할당할 수 있다. `any`는 타입 체킹을 하지 않기 때문이다.
+
+```typescript
+function fn(x: any) {
+    const a: number = x;
+}
+```
+
+- `unknown` 타입의 값은 `any`나 `unknown` 타입의 변수에만 할당할 수 있다. 다른 타입의 변수에 할당하려면 type aseertion이나 type guard를 사용해야만 한다. (즉, `any`는 타입 체킹을 하지 않으므로 type aseertion이나 type guard를 강제하려면 `unknown`을 사용하도록 한다.)
+
+### `never`
+
+> 출처
+>
+> - https://www.typescriptlang.org/docs/handbook/2/functions.html#never
+> - https://www.typescriptlang.org/docs/handbook/2/narrowing.html#the-never-type
+
+- `never`은 절대 나타날 수 없는 값을 의미한다.
+- `never` 타입의 값은 어떤 타입의 변수에든 할당할 수 있다.
+- `never` 타입의 변수에는 `never` 타입의 값만 할당할 수 있다.
+- `never`는 절대 값을 반환하지 않는 함수의 반환값을 의미한다.
+
+```typescript
+function fail(): never  {
+  throw new Error();
+}
+```
+
+### `void`
+
+- `void`는 어떤 값도 반환하지 않는 함수의 반환값을 의미한다.
+- 자바스크립트 함수는 어떤 값도 반환하지 않으면 암묵적으로 `undefined`를 반환하나 타입스크립트에서 `void`와 `undefined`는 같지 않다.
+
+```typescript
+function hello(): void {
+  console.log('hello')
+}
+```
+
+| type      | 의미하는 것       | 할당                                                         | 기타                                                   |
+| --------- | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
+| `any`     | 모든 값           | `any` 타입의 변수에는 어떤 타입의 값이든 할당할 수 있다. / `any` 타입의 값은 어떤 타입의 변수에도 할당할 수 있다. | 타입 체킹을 하지 않는다.                               |
+| `unknown` | 모든 값           | `unknown` 타입의 변수에는 어떤 값이든 할당할 수 있다. / `unknown` 타입의 값은 `unknown` 타입의 변수에만 할당할 수 있다. | 타입 체킹을 한다. (type assertion, type guard 등 필요) |
+| `never`   | 존재할 수 없는 값 | `never` 타입의 변수에는 어떤 값이든 할당할 수 있다. / `never` 타입의 값은 `never` 타입의 변수에만 할당할 수 있다. |                                                        |
+
+## Arrays
+
+- 모든 요소의 타입이 같은 배열은 `T[]`이나 `Array<T>`로 나타낸다.
+
+```typescript
+const foo: number[] = [];
+const bar: Array<number> = [];
+```
 
 ## Functions
 
@@ -105,9 +166,9 @@ async function getNumber(): Promise<number> {
 }
 ```
 
-### contextual typing
+### Anonymous Functions and contextual typing
 
-- contextual typing은 함수가 위치한 문맥(context)을 통해 어떤 타입이어야하는지 추론하는 것이다.
+- **contextual typing**은 함수가 위치한 문맥(context)을 통해 어떤 타입이어야하는지 추론하는 것이다.
 - 익명 함수는 contextual typing을 통해 보통 파라미터의 타입을 명시하지 않아도 된다.
 
 ```typescript
@@ -130,6 +191,17 @@ function printCoord(pt: { x: number; y: number }) { /* */ }
 
 ```typescript
 function printName(name: {first: string; last?: string}) { /* 생략 */ }
+```
+
+### `object`
+
+- `object`는 primitive가 아닌 모든 값을 의미한다.
+- `object`는 빈 객체 타입인 `{}`과 global type `Object`와 다르다. (TODO; 그러면 global type `Object`는 무엇을 의미하는가?)
+
+```typescript
+function fn(obj: Object) {}
+fn({});	// TODO; 오류가 나지는 않음
+fn({ name: 1 });
 ```
 
 ## Union Types
@@ -156,7 +228,7 @@ function input(str: string): UserInput {
 
 ## Interfaces
 
-- interface declaration은 객체 타입에 이름을 부여하는 또다른 방법이다.
+- interface declaration은 **객체 타입에** 이름을 부여하는 방법이다.
 
 ```typescript
 interface Point {
@@ -238,8 +310,6 @@ TODO;
 1. Prior to TypeScript version 4.2, type alias names [*may* appear in error messages](https://www.typescriptlang.org/play?#code/PTAEGEHsFsAcEsA2BTATqNrLusgzngIYDm+oA7koqIYuYQJ56gCueyoAUCKAC4AWHAHaFcoSADMaQ0PCG80EwgGNkALk6c5C1EtWgAsqOi1QAb06groEbjWg8vVHOKcAvpokshy3vEgyyMr8kEbQJogAFND2YREAlOaW1soBeJAoAHSIkMTRmbbI8e6aPMiZxJmgACqCGKhY6ABGyDnkFFQ0dIzMbBwCwqIccabcYLyQoKjIEmh8kwN8DLAc5PzwwbLMyAAeK77IACYaQSEjUWZWhfYAjABMAMwALA+gbsVjoADqgjKESytQPxCHghAByXigYgBfr8LAsYj8aQMUASbDQcRSExCeCwFiIQh+AKfAYyBiQFgOPyIaikSGLQo0Zj-aazaY+dSaXjLDgAGXgAC9CKhDqAALxJaw2Ib2RzOISuDycLw+ImBYKQflCkWRRD2LXCw6JCxS1JCdJZHJ5RAFIbFJU8ADKC3WzEcnVZaGYE1ABpFnFOmsFhsil2uoHuzwArO9SmAAEIsSFrZB-GgAjjA5gtVN8VCEc1o1C4Q4AGlR2AwO1EsBQoAAbvB-gJ4HhPgB5aDwem-Ph1TCV3AEEirTp4ELtRbTPD4vwKjOfAuioSQHuDXBcnmgACC+eCONFEs73YAPGGZVT5cRyyhiHh7AAON7lsG3vBggB8XGV3l8-nVISOgghxoLq9i7io-AHsayRWGaFrlFauq2rg9qaIGQHwCBqChtKdgRo8TxRjeyB3o+7xAA), sometimes in place of the equivalent anonymous type (which may or may not be desirable). Interfaces will always be named in error messages.
 2. Interface names will [*always* appear in their original form](https://www.typescriptlang.org/play?#code/PTAEGEHsFsAcEsA2BTATqNrLusgzngIYDm+oA7koqIYuYQJ56gCueyoAUCKAC4AWHAHaFcoSADMaQ0PCG80EwgGNkALk6c5C1EtWgAsqOi1QAb06groEbjWg8vVHOKcAvpokshy3vEgyyMr8kEbQJogAFND2YREAlOaW1soBeJAoAHSIkMTRmbbI8e6aPMiZxJmgACqCGKhY6ABGyDnkFFQ0dIzMbBwCwqIccabcYLyQoKjIEmh8kwN8DLAc5PzwwbLMyAAeK77IACYaQSEjUWY2Q-YAjABMAMwALA+gbsVjNXW8yxySoAADaAA0CCaZbPh1XYqXgOIY0ZgmcK0AA0nyaLFhhGY8F4AHJmEJILCWsgZId4NNfIgGFdcIcUTVfgBlZTOWC8T7kAJ42G4eT+GS42QyRaYbCgXAEEguTzeXyCjDBSAAQSE8Ai0Xsl0K9kcziExDeiQs1lAqSE6SyOTy0AKQ2KHk4p1V6s1OuuoHuzwArMagA) in error messages, but *only* when they are used by name.
 
-
-
 ## Type Assertions
 
 - type assertion은 명시적으로 타입스크립트에게 값의 타입을 알려주는 것이다. `값 as T`로 나타낸다.
@@ -273,8 +343,6 @@ function func(x: string | null | undefined) {
   console.log(x!.toUpperCase());
 }
 ```
-
-
 
 ## Literal Types
 

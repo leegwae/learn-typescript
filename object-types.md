@@ -245,3 +245,7 @@ distance(point);
 ```
 
 TODO; https://github.com/leegwae/learn-typescript/blob/main/functions.md#rest-arguments
+
+## 참고
+
+- https://www.typescriptlang.org/docs/handbook/2/objects.html
