@@ -125,7 +125,21 @@ function toObject<Type extends { length: number }>(length: number): Type {
 ### Guidelines for Writing Good Generic Functions
 
 1. 가능하면 type parameter에 constraint를 쓰지 않는다.
+
+   ```typescript
+   // constraint를 사용한 경우
+   function getValue<Type, Key extends keyof Type>(obj: Type, key: Key) {
+     return obj[key];
+   }
+   
+   // constraint를 제거
+   function getValue<Type>(obj: Type, key: keyof obj) {
+     return obj[key];
+   }
+   ```
+
 2. 가능한 한 적은 수의 type parameter를 사용한다.
+
 3. type parameter가 한 곳에서만 사용된다면 정말로 필요한지 재고한다. (type parameter는 다양한 값을 연관짓기 위해 사용한다.)
 
 ## Optional Parameters
