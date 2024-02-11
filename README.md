@@ -9,3 +9,6 @@
 
 - [Introduction](https://github.com/leegwae/learn-typescript/blob/main/introduction.md)
 - [Common Types](https://github.com/leegwae/learn-typescript/blob/main/common-types.md)
+- [Narrowing](https://github.com/leegwae/learn-typescript/blob/main/narrowing.md)
+- [Functions](https://github.com/leegwae/learn-typescript/blob/main/functions.md)
+- [Object Types](https://github.com/leegwae/learn-typescript/blob/main/object-types.md)
