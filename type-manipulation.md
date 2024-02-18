@@ -222,7 +222,56 @@ type EventHandlers = EventHandler<ClickEvent | ScrollEvent>;
 // }
 ```
 
+## Template Literal Types
 
+- template literal type은 string literal type에 기반한다.
+- union이 interpolated position에서 사용되면 type은 각 union 멤버에 대한 모든 가능한 경우의 수의 집합이다.
+
+```typescript
+type Event = 'Click' | 'Scroll';
+type WithEventPrefix = `Event_${Event}`;	 //type WithEventPrefix = "Event_Click" | "Event_Scroll"
+```
+
+## Instrinsic String Manipulation Types
+
+- string manipulation에 도움이 되는 타입들이 있다. 이들은 성능을 위해 컴파일러에 내장되어 있어 `.d.ts`에서는 찾을 수 없다.
+- 내부적으로 4.1부터는 자바스크립트 런타임 함수를 사용한다고 한다.
+
+### `Uppercase<StringType>`
+
+- 문자열의 각 문자를 대문자로 변환한다.
+
+```typescript
+type Hello = 'hello, world';
+type UppercaseHello = Uppercase<Hello>;	// type UppercaseHello = "HELLO, WORLD"
+```
+
+### `Lowercase<StringType>`
+
+- 문자열의 각 문자를 소문자로 변환한다.
+
+```typescript
+type Hello = 'hello, world';
+type LowercaseHello = Lowercase<Hello>;	// type LowercaseHello = "hello, world"
+```
+
+### `Capitalize<StringType>`
+
+- 문자열의 첫 문자를 대문자로 변환한다.
+
+```typescript
+type Hello = 'hello world';
+type CapitalizedHello = Capitalize<Hello>;	// type CapitalizedHello = "Hello world"
+```
+
+### `Uncapitalize<StringType>`
+
+- 문자열의 첫 문자를 대문자로 변환한다.
+
+```typescript
+type Hello = 'Hello world';
+type UncapitalizedHello = Uncapitalize<Hello>;	// type CapitalizedHello = "hello world"
+```
 
 
 
@@ -233,3 +282,6 @@ type EventHandlers = EventHandler<ClickEvent | ScrollEvent>;
 - https://www.typescriptlang.org/docs/handbook/2/keyof-types.html
 - https://www.typescriptlang.org/docs/handbook/2/typeof-types.html
 - https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html
+- https://www.typescriptlang.org/docs/handbook/2/conditional-types.html
+- https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
+- https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html
