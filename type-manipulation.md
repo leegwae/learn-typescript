@@ -273,7 +273,11 @@ type Hello = 'Hello world';
 type UncapitalizedHello = Uncapitalize<Hello>;	// type CapitalizedHello = "hello world"
 ```
 
+## 스터디
 
+### 인터페이스에 쓰는 extends랑 constraint에 쓰는 extends랑 다르다
+
+- 후자의 경우, 타입 변수는 `extends` 뒤에 오는 타입의 하위 타입이어야한다.
 
 
 

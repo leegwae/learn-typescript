@@ -692,7 +692,7 @@ class Derived extends Base {
   val = 'derived';
   constructor() {
     super();
-    console.log(`base constructor: ${this.val}`);
+    console.log(`derived constructor: ${this.val}`);
   }
 }
 
